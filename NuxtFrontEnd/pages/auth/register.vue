@@ -4,10 +4,10 @@
         <h1 class="text-center text-2xl font-bold mb-5">Create an Account</h1>
 
         <FormKit
-        type="form"
-        @submit="submitRegistrationForm"
-        submit-label="Register"
-        id="registrationForm"
+            type="form"
+            @submit="submitRegistrationForm"
+            submit-label="Register"
+            id="registrationForm"
         >
                 <FormKit
                     type="text"
@@ -49,7 +49,7 @@
 
             Already have an Account ?
 
-            <NuxtLink to="/login" class="text-blue-500 hover:text-blue-700">
+            <NuxtLink to="/auth/login" class="text-blue-500 hover:text-blue-700">
                 Login
             </NuxtLink>
         </i>
@@ -67,6 +67,7 @@
         </div>
 
     </div>
+
 </template>
 
 <script setup>
@@ -76,7 +77,12 @@
     const isSuccess = ref(true)
 
     const submitRegistrationForm = async (formData) => {
+        // formData comes from formkit which has the data of all input field
         console.log(formData)
+
+        /*  we can use reset function to reset the form by passing in the 
+            HTML form ID WHICH IS registrationForm in our case
+        */
         reset('registrationForm')
     };
 

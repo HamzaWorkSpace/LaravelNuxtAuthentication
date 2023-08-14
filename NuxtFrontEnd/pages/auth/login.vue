@@ -25,7 +25,7 @@
         />
         <div class="mb-2 text-sm">
           <NuxtLink
-            to="/account/reset_password"
+            to="/auth/reset_password"
             class="text-blue-500 hover:text-blue-700"
             >Forgot Password ?</NuxtLink
           >
@@ -34,7 +34,7 @@
       <i class="text-gray-700 text-sm">
         Do not have Account ?
         <NuxtLink
-          to="/register"
+          to="/auth/register"
           class="text-blue-500 hover:text-blue-700"
           >Create an Account</NuxtLink
         >
@@ -57,7 +57,8 @@ const submitLoginForm = async (formData) => {
   if(is_admin.value){
     return navigateTo("/admin/dashboard", { replace: true });
   }
-  return navigateTo("/user/dashboard", { replace: true });
+  return navigateTo("../user/dashboard", { replace: true });
+  //return navigateTo("/", { replace: true });
 };
 </script>
 
