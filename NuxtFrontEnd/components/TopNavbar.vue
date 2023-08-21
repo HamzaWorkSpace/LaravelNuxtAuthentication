@@ -156,7 +156,7 @@
                             <div v-if="!isAuthenticated">
                                 <div class="px-5 py-2 mb-5">
                                     <NuxtLink
-                                        to="/login"
+                                        to="/auth/login"
                                         class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded w-full"
                                         @click="isMobileMenuOpen = false"
                                     >

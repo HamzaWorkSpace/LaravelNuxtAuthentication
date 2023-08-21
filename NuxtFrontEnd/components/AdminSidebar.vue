@@ -1,5 +1,5 @@
 <script setup>
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/applicationStore";
 const authStore = useAuthStore();
 const onLogout = async () => {
   authStore.$reset();

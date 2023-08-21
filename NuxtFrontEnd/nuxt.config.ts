@@ -7,6 +7,13 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@formkit/nuxt'
   ],
+  //to fix samesite console error 
+  piniaPersistedstate:{
+    cookieOptions:{
+      sameSite:"strict",
+    }
+  },
+
   app:{
     head:{
       link:[

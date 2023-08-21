@@ -1,3 +1,4 @@
+
 <template>
  
   <div class="my-32 w-96 mx-auto">
@@ -26,13 +27,16 @@
   </div>
 </template>
 
+
 <script setup>
-const serverError = ref(false);
-const isSuccess = ref(false);
-const submitResetPasswordForm = async (formData) => {
-  console.log(formData)
-};
+    const serverError = ref(false);
+    const isSuccess = ref(false);
+    const submitResetPasswordForm = async (formData) => {
+        console.log(formData)
+    };
 </script>
+
+
 
 <style scoped>
 
