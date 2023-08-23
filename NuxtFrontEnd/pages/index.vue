@@ -3,17 +3,23 @@
     
             <h2 class="text-2xl text-center my-8">All Products</h2>
 
-            {{ appStore.data }}
+            <!-- {{ appStore.data }} -->
       
     </div>
 </template>
 
 <script setup>
-    import {useStore} from '@/stores/applicationStore'
 
-    const appStore = useStore();
+import {SanctumAuth} from '@/stores/AuthStore'
 
-    appStore.dumyFunction();
+const authStore = SanctumAuth();
+
+    authStore.fetchUser();
+    //import {useStore} from '@/stores/applicationStore'
+
+    //const appStore = useStore();
+
+    // appStore.dumyFunction();
 </script>
 
 <style scoped>

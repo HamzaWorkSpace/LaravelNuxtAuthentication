@@ -1,21 +1,21 @@
-import { defineStore } from "pinia";
+// import { defineStore } from "pinia";
 
-export const useStore = defineStore('store', {
+// export const useStore = defineStore('store', {
 
-    state:()=>({
+//     state:()=>({
 
-        data:''
+//         data:''
 
-    }),
-    actions:{
-        async dumyFunction(){
-            this.data = await useFetch('https://fakestoreapi.com/products');
+//     }),
+//     actions:{
+//         async dumyFunction(){
+//             this.data = await useFetch('https://fakestoreapi.com/products');
 
-           // this.data = fakedata.data;
+//            // this.data = fakedata.data;
 
-            console.log(this.data);
+//             console.log(this.data);
 
-        }
+//         }
 
-    }
-})
+//     }
+// })

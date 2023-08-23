@@ -11,6 +11,15 @@ export function useApiFetch<T> (path:string, options:UseFetchOptions<T>={}){
         headers['X-XSRF-TOKEN']=token.value as string;
     }
 
+    if (process.server){
+
+        headers={
+            ...headers,
+            ...useRequestHeaders(["referer","cookie"])
+        }
+
+    }
+
     return useFetch("http://localhost:8000" + path,{
         credentials:"include",
         watch:false,
@@ -20,5 +29,6 @@ export function useApiFetch<T> (path:string, options:UseFetchOptions<T>={}){
             ...options?.headers
         }
     }); 
+ 
 
 }

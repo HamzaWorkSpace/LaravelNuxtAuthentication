@@ -45,9 +45,9 @@
           >Create an Account</NuxtLink
         >
       </i>
-      <!-- <div v-if="serverError">
+      <div v-if="authStore.user==null">
         <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative ">Unable to Login</p>      
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +62,15 @@ const submitLoginForm = async (formData) => {
 
   const {error} = await authStore.login(formData);
 
-  console.log(error);
+  if(error.value==null){// error.value==null means no error, login successfull
+
+    return navigateTo("/", { replace: true });
+
+  }
+  else{
+    console.log(authStore.user);
+  }
+
 
 };
 </script>
