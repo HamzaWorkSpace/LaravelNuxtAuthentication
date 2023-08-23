@@ -60,11 +60,9 @@ const authStore = SanctumAuth();
 
 const submitLoginForm = async (formData) => {
 
-  console.log("displaying form data")
-  console.log(formData)
-  console.log("calling getcsrftoken function now")
-  
-  authStore.loginsetup(formData);
+  const {error} = await authStore.login(formData);
+
+  console.log(error);
 
 };
 </script>

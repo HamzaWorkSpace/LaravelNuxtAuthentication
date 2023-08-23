@@ -51,7 +51,8 @@
 
                 </div>
 
-                <div v-if="!isAuthenticated" class="hidden md:block">
+                
+                <div v-if="authStore.user==null" class="hidden md:block">
 
                     <div class="ml-4 flex items-center md:ml-6">  
 
@@ -63,19 +64,50 @@
 
                         </NuxtLink>
 
-                        <!-- <NuxtLink
-                            to="/register"
-                            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 ml-4 rounded"
-                        >
-                            Register
-                        
-                        </NuxtLink> -->
-
                     </div>
                     
                 </div>
 
-                <!-- mobile responsive nav bar code below -->
+                <div v-else class="hidden md:block">
+
+                    <div class="ml-4 flex items-center md:ml-6">  
+
+                        <NuxtLink
+                            to="/auth/login"
+                            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                        
+                        hello {{authStore.user.name}}
+
+                        </NuxtLink>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- mobile responsive nav bar code below -->
 
                 <div class="md:hidden z-50">
                     <!-- Mobile menu button -->
@@ -150,17 +182,17 @@
                                 >
                                     Contact
                                 </NuxtLink>
-                                <!-- <NuxtLink
+                                <NuxtLink
                                     to="/user/dashboard"
                                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     @click="isMobileMenuOpen = false"
-                                    v-if="isAuthenticated"
+                                    v-if="authStore.user==null"
                                 >
                                     Dashboard
-                                </NuxtLink> -->
+                                </NuxtLink>
                             </div>
 
-                            <div v-if="!isAuthenticated">
+                            <div v-if="authStore.user==null">
                                 <div class="px-5 py-2 mb-5">
                                     <NuxtLink
                                         to="/auth/login"
@@ -198,9 +230,11 @@
 
 
 <script setup>
-    //import { useAuthStore } from "@/stores/auth";
-    //const authStore = useAuthStore();
-    const isAuthenticated = ref(false);
+    import {SanctumAuth} from '@/stores/AuthStore'
+
+    const authStore = SanctumAuth();
+
+    //const isAuthenticated = ref(authStore.user);
     const isMobileMenuOpen = ref(false);
 </script>
 

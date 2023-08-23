@@ -1,6 +1,8 @@
 <template>
     <div>
-        <TopNavbar/>
+
+        <AuthHeader/>
+        <!-- <TopNavbar/> -->
         <!-- <header class="p-4 bg-gray-600 text-white">
                 by ajay yadav tutorial
             <NuxtLink to='/login' class="p-2 bg-red-600 text-white rounded">Login</NuxtLink>
