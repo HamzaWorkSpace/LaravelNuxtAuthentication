@@ -30,14 +30,21 @@
                                 Contact
                             </NuxtLink>
 
-                            <!-- <NuxtLink
-                                to="/user/dashboard"
+                            <NuxtLink
+                                to="/auth-only"
                                 class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300"
-                                v-if="isAuthenticated"
-                            >                
-                                Dashboard
-                            </NuxtLink> -->
+                            >
+                                Auth Only
+                            </NuxtLink>
 
+                            <NuxtLink
+                                to="/guest-only"
+                                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300"
+                            >
+                                Guest Only
+                            </NuxtLink>
+
+                           
                         </div>
 
                     </div>
@@ -143,14 +150,14 @@
                                 >
                                     Contact
                                 </NuxtLink>
-                                <NuxtLink
+                                <!-- <NuxtLink
                                     to="/user/dashboard"
                                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     @click="isMobileMenuOpen = false"
                                     v-if="isAuthenticated"
                                 >
                                     Dashboard
-                                </NuxtLink>
+                                </NuxtLink> -->
                             </div>
 
                             <div v-if="!isAuthenticated">

@@ -9,7 +9,7 @@ export const useStore = defineStore('store', {
     }),
     actions:{
         async dumyFunction(){
-            this.data = await $fetch('https://fakestoreapi.com/products');
+            this.data = await useFetch('https://fakestoreapi.com/products');
 
            // this.data = fakedata.data;
 

@@ -7,6 +7,11 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@formkit/nuxt'
   ],
+
+  experimental: {
+    renderJsonPayloads: false
+  },//solving error Cannot stringify a function on using useFetch()
+
   //to fix samesite console error 
   piniaPersistedstate:{
     cookieOptions:{

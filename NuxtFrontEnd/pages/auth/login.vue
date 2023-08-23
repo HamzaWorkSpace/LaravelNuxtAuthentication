@@ -2,6 +2,12 @@
   <div>
     <div class="mt-32 w-96 mx-auto">
       <h1 class="text-center text-2xl font-bold mb-5">User Login</h1>
+
+      test@example.com
+      <br>
+
+      password
+
       <FormKit
         type="form"
         @submit="submitLoginForm"
@@ -39,26 +45,27 @@
           >Create an Account</NuxtLink
         >
       </i>
-      <div v-if="serverError">
-      <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative ">Unable to Login</p>      
-    </div>
+      <!-- <div v-if="serverError">
+        <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative ">Unable to Login</p>      
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup>
-//import { useAuthStore } from "@/stores/auth";
-//const authStore = useAuthStore();
-const is_admin = ref(false)
-const serverError = ref(false);
+
+import {SanctumAuth} from '@/stores/AuthStore'
+
+const authStore = SanctumAuth();
+
 const submitLoginForm = async (formData) => {
+
+  console.log("displaying form data")
   console.log(formData)
-  //authStore.setAuthenticated(true)
-  if(is_admin.value){
-    return navigateTo("/admin/dashboard", { replace: true });
-  }
-  return navigateTo("../user/dashboard", { replace: true });
-  //return navigateTo("/", { replace: true });
+  console.log("calling getcsrftoken function now")
+  
+  authStore.loginsetup(formData);
+
 };
 </script>
 
