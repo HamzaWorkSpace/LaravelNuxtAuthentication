@@ -56,9 +56,21 @@
 
 import {SanctumAuth} from '@/stores/AuthStore'
 
+
+  definePageMeta({
+          middleware:['guest']
+  })
+
 const authStore = SanctumAuth();
 
+
 const submitLoginForm = async (formData) => {
+
+  if(authStore.isLoggedIn) { 
+
+    return navigateTo("/", { replace: true });
+  }
+
 
   const {error} = await authStore.login(formData);
 

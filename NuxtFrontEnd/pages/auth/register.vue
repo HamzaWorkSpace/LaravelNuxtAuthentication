@@ -31,15 +31,19 @@
                     name="password"
                     validation="required"
                     placeholder="Enter your password..."
+                    suffix-icon="eyeClosed"
+                    @suffix-icon-click="handleIconClick"
                 />
                 <FormKit
                     type="password"
-                    name="re_password"
+                    name="password_confirmation"
                     label="Confirm Password"
                     validation="required|confirm:password|required"
                     placeholder="Re-enter your password..."
                     validation-visibility="live"
                     validation-label="Confirm Password"
+                    suffix-icon="eyeClosed"
+                    @suffix-icon-click="handleIconClick"
                 />
 
         </FormKit>
@@ -54,7 +58,7 @@
             </NuxtLink>
         </i>
 
-        <div v-if="serverError">
+        <!-- <div v-if="serverError">
 
             <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative ">
                 Unable to Register
@@ -68,7 +72,7 @@
                 You have registered successfully !
             </p>
         
-        </div>
+        </div> -->
 
     </div>
 
@@ -76,22 +80,70 @@
 
 <script setup>
 
-    import { reset } from '@formkit/core'
-    const serverError = ref(false)
-    const isSuccess = ref(true)
+    //import { reset } from '@formkit/core'
+
+    import {SanctumAuth} from '@/stores/AuthStore'
+
+    const authStore = SanctumAuth();
 
     const submitRegistrationForm = async (formData) => {
         // formData comes from formkit which has the data of all input field
-        console.log(formData)
-
-        /*  we can use reset function to reset the form by passing in the 
+         /*  we can use reset function at the end of the function to reset the form by passing in the 
             HTML form ID WHICH IS registrationForm in our case
         */
-        reset('registrationForm')
+
+
+        const {error} = await authStore.register(formData);
+
+        if(error.value==null){// error.value==null means no error, login successfull
+
+            //reset('registrationForm')
+            return navigateTo("/auth/newUserVerification", { replace: true });
+
+        }
+        else{
+            console.log(authStore.user);
+        }
+
+        
     };
+
+    const handleIconClick = (node, e) => {
+        node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+        node.props.type = node.props.type === 'password' ? 'text' : 'password'
+    }
+
+
+/**
+ * 
+ * {
+    "message": "The password field confirmation does not match. (and 1 more error)",
+    "errors": {
+        "password": [
+            "The password field confirmation does not match.",
+            "The password field must be at least 8 characters."
+        ]
+    }
+}
+ */
+
+
+ /**
+  * 
+  * |confirmed| always work with laravel naming conversions For example, 
+  * if the field under validation is password, 
+  * a matching password_confirmation field must be present in the input.
+  *   is that your input name is password_confirmation ?? if not do that   
+  * 
+  */
+
 
 </script>
 
 <style  scoped>
+
+.formkit-suffix-icon:hover {
+  color: var(--fk-color-primary);
+}
 
 </style>

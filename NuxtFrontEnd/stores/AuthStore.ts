@@ -12,6 +12,13 @@ type Credentials={
     email:string;
     password:string;
 }
+
+type RegistrationInfo={
+    name:string;
+    email:string;
+    password:string;
+    password_confirmation:string;
+}
 export const SanctumAuth = defineStore('Authentication',() => {
 
     const user = ref<User|null>(null);
@@ -40,9 +47,39 @@ export const SanctumAuth = defineStore('Authentication',() => {
 
         return loginchk;
     }
-    return {user, login, isLoggedIn, fetchUser}
+
+
+    async function logout(){
+
+         await useApiFetch('/logout', { method:"POST" });
+
+        user.value = null;
+        navigateTo("/");//home page
+
+    }
+
+    async function register(info:RegistrationInfo){
+
+        await useApiFetch('/sanctum/csrf-cookie');
+
+        const registerchk = await useApiFetch('/register',{   
+
+            method:"POST",
+            body:info
+        });        
+
+        await fetchUser();
+
+        return registerchk;
+    }
+
+    
+
+
+    return {user, login, isLoggedIn, fetchUser, logout, register}
 });
 
 
-// awsome video link
+// awsome video links
 //https://www.youtube.com/watch?v=NY9yoqoN72w
+//https://www.youtube.com/watch?v=HLPoKz9j9KY

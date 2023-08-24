@@ -1,7 +1,9 @@
 <template>
     <div>
 
-        <AuthHeader/>
+        <TopNavbar
+            :isloggedIn="authStore.isLoggedIn"
+        />
         <!-- <TopNavbar/> -->
         <!-- <header class="p-4 bg-gray-600 text-white">
                 by ajay yadav tutorial
