@@ -10,11 +10,7 @@
 
 <script setup>
 
-import {SanctumAuth} from '@/stores/AuthStore'
-
-const authStore = SanctumAuth();
-
-    authStore.fetchUser();
+    
     //import {useStore} from '@/stores/applicationStore'
 
     //const appStore = useStore();

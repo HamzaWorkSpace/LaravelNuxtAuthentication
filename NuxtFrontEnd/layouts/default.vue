@@ -18,6 +18,11 @@
 
 <script setup>
 
+    import {SanctumAuth} from '@/stores/AuthStore'
+
+    const authStore = SanctumAuth();
+
+    await authStore.fetchUser();
 
 </script>
 
