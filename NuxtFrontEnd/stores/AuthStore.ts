@@ -18,19 +18,28 @@ type RegistrationInfo={
     email:string;
     password:string;
     password_confirmation:string;
+    //SHOULD WRITE COMPLETE WORD  password_confirmation AS IN LARAVEL IT IS USED TO GET DATA FROM HTML NAME PROPERTY
+}
+
+
+type ErrMsg = {
+    message:string;
 }
 export const SanctumAuth = defineStore('Authentication',() => {
 
     const user = ref<User|null>(null);
 
-    const isLoggedIn = computed(()=>!!user.value)
+    const isLoggedIn = computed(()=>!!user.value);
+
+    const errMsg = ref<ErrMsg|string>('');  
 
     async function fetchUser(){
 
-        const{data,error}=await useApiFetch('/api/user'); 
+        const{data,error:errMsg}=await useApiFetch('/api/user'); 
         user.value = data.value as User;
 
-        console.log(error);
+        return errMsg;
+        //console.log(error);
     }
 
     async function login(credentials:Credentials){
@@ -43,7 +52,15 @@ export const SanctumAuth = defineStore('Authentication',() => {
             body:credentials
         });        
 
-        await fetchUser();
+        const findUser =await fetchUser();
+
+        if(findUser.value==null)// null is NO ERROR| not null(data->dhsaflhfjahj) (not null is error)
+        {
+            errMsg.value = 'SUCCESS'
+        }
+        else{
+            errMsg.value= 'ERROR';
+        }
 
         return loginchk;
     }
@@ -76,7 +93,7 @@ export const SanctumAuth = defineStore('Authentication',() => {
     
 
 
-    return {user, login, isLoggedIn, fetchUser, logout, register}
+    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg}
 });
 
 
