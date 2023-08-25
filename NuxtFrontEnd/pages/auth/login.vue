@@ -58,10 +58,14 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 
 import {SanctumAuth} from '@/stores/AuthStore'
 
+    type Credentials={
+        email:string;
+        password:string;
+    }
 
   definePageMeta({
           middleware:['guest']
@@ -70,7 +74,7 @@ import {SanctumAuth} from '@/stores/AuthStore'
 const authStore = SanctumAuth();
 
 
-const submitLoginForm = async (formData) => {
+const submitLoginForm = async (formData:Credentials) => {
 
   if(authStore.isLoggedIn) { 
 
@@ -97,7 +101,7 @@ const submitLoginForm = async (formData) => {
 
 };
 
-  const handleIconClick = (node, e) => {
+  const handleIconClick = (node:any) => {
         node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
         node.props.type = node.props.type === 'password' ? 'text' : 'password'
   }
@@ -107,3 +111,27 @@ const submitLoginForm = async (formData) => {
 <style scoped>
 
 </style>
+
+
+
+
+
+/**
+ANSWER FOR =====>> Cannot find name 'defineNuxtConfig'.ts(2304) ERROR IN VS CODE
+
+
+I had the same problem, weirdly enough after trying a few things what fixed it for me was 
+changing the VSCode plugin Volar:Typescript Version to Use workspace version THEN changing 
+back to Use VS Code's Version
+
+How:
+
+1-  On VSCode press F1 or Ctrl + Shift + P
+2-  Type Volar: Select Typescript Version
+3-  Select Use workspace version
+4-  Repeat steps 1 & 2
+5-  But this time select Use VS Code's Version
+Bam, all my nuxt3 autoimports are correctly typed, don't know why tho.
+
+
+*/
