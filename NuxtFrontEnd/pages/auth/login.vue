@@ -28,6 +28,8 @@
           name="password"
           validation="required"
           placeholder="Enter your password..."
+          suffix-icon="eyeClosed"
+          @suffix-icon-click="handleIconClick"
         />
         <div class="mb-2 text-sm">
           <NuxtLink
@@ -89,11 +91,17 @@ const submitLoginForm = async (formData) => {
 
   }
   else{
-    console.log(authStore.user);
+    return navigateTo("/auth/login", { replace: true });
   }
 
 
 };
+
+  const handleIconClick = (node, e) => {
+        node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+        node.props.type = node.props.type === 'password' ? 'text' : 'password'
+  }
+
 </script>
 
 <style scoped>

@@ -1,38 +1,40 @@
 import { defineStore } from "pinia";
-//import { useApiFetch } from "@/composables/useApiFetch";
 
-type User={
-    id:number;
-    name:string;
-    email:string;
-}
-
-
-type Credentials={
-    email:string;
-    password:string;
-}
-
-type RegistrationInfo={
-    name:string;
-    email:string;
-    password:string;
-    password_confirmation:string;
-    //SHOULD WRITE COMPLETE WORD  password_confirmation AS IN LARAVEL IT IS USED TO GET DATA FROM HTML NAME PROPERTY
-}
+    type User={
+        id:number;
+        name:string;
+        email:string;
+    }
 
 
-type ErrMsg = {
-    message:string;
-}
+    type Credentials={
+        email:string;
+        password:string;
+    }
+
+    type RegistrationInfo={
+        name:string;
+        email:string;
+        password:string;
+        password_confirmation:string;
+        //SHOULD WRITE COMPLETE WORD  password_confirmation AS IN LARAVEL IT IS USED TO GET DATA FROM HTML NAME PROPERTY
+    }
+
+
+    type ErrMsg = {
+        message:string;
+    }
+
 export const SanctumAuth = defineStore('Authentication',() => {
 
+    //states
     const user = ref<User|null>(null);
 
     const isLoggedIn = computed(()=>!!user.value);
 
     const errMsg = ref<ErrMsg|string>('');  
 
+    //actions
     async function fetchUser(){
 
         const{data,error:errMsg}=await useApiFetch('/api/user'); 
@@ -54,14 +56,9 @@ export const SanctumAuth = defineStore('Authentication',() => {
 
         const findUser =await fetchUser();
 
-        if(findUser.value==null)// null is NO ERROR| not null(data->dhsaflhfjahj) (not null is error)
-        {
-            errMsg.value = 'SUCCESS'
-        }
-        else{
-            errMsg.value= 'ERROR';
-        }
-
+        // findUser.value==null is NO ERROR| findUser.value!=null(data->dhsaflhfjahj) (not null is error)
+        findUser.value==null? errMsg.value = 'SUCCESS': errMsg.value= 'ERROR';
+        
         return loginchk;
     }
 
