@@ -11,6 +11,8 @@ export const SanctumAuth = defineStore('Authentication',() => {
 
     const errMsg = ref<ErrMsg|string>('');  
 
+ 
+
     //actions
     async function fetchUser(){
 
@@ -64,10 +66,14 @@ export const SanctumAuth = defineStore('Authentication',() => {
         return registerchk;
     }
     
-    async function SocialAuthLogin(){
-        await useApiFetch('/api//auth/redirect');
+    async function getLoggedInGoogleUserData(id:string){
+        const googleData= await useApiFetch('/api/googleUserData/'+id,{method:"GET",key:id});
+
+        console.log(googleData);
+
+        return googleData;
     }
-    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,SocialAuthLogin}
+    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,getLoggedInGoogleUserData}
 });
 
 

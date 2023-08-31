@@ -4,18 +4,31 @@
             <h2 class="text-2xl text-center my-8">All Products</h2>
 
             <!-- {{ appStore.data }} -->
+
+            {{ logindata }}
       
     </div>
 </template>
 
 <script setup>
 
-    
-    //import {useStore} from '@/stores/applicationStore'
+import {SanctumAuth} from '@/stores/AuthStore'
 
-    //const appStore = useStore();
+//   definePageMeta({
+//           middleware:['auth']
+//   })
 
-    // appStore.dumyFunction();
+  const authStore = SanctumAuth();
+
+
+    const {id} = useRoute().params;
+
+   
+
+
+
+  const logindata = authStore.getLoggedInGoogleUserData(id);
+
 </script>
 
 <style scoped>

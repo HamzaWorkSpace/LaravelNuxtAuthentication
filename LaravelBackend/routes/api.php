@@ -22,5 +22,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 //Route::post('/AuthProvider', [SocialAuthController::class, 'assignAuthProvider']);
 
+Route::get('googleUserData/{id}', [SocialAuthController::class, 'getGoogleUserData']);
 Route::get('/auth/redirect', [SocialAuthController::class, 'SocialAuthRedirect']);
 Route::get('/auth/callback', [SocialAuthController::class, 'SocialAuthCallBack']);
