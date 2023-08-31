@@ -13,11 +13,11 @@ export default defineNuxtConfig({
   },//solving error Cannot stringify a function on using useFetch()
 
   //to fix samesite console error 
-  piniaPersistedstate:{
-    cookieOptions:{
-      sameSite:"strict",
-    }
-  },
+  // piniaPersistedstate:{
+  //   cookieOptions:{
+  //     sameSite:"strict",
+  //   }
+  // },
 
   app:{
     head:{

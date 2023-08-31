@@ -21,6 +21,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        
+        //below line of code added to remove this error -> Session store not set on request
+        \Illuminate\Session\Middleware\StartSession::class,
     ];
 
     /**

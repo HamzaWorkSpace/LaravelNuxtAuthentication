@@ -18,7 +18,7 @@
           type="text"
           label="Email"
           name="email"
-          validation="required|email"
+          validation="email"
           placeholder="Enter your email..."
         />
 
@@ -56,16 +56,19 @@
       </div>
     </div>
   </div>
+
+  <div class="mt-10 w-96 mx-auto">
+         <!-- <button class="hover:text-blue-700" @click="authStore.SocialAuthLogin()">Login with Google</button> 
+         -->
+          <form action="http://localhost:8000/api/auth/redirect" method="get"> 
+            <input type="submit" value="Login with Google"/>
+          </form>
+  </div>
 </template>
 
 <script lang="ts" setup>
 
 import {SanctumAuth} from '@/stores/AuthStore'
-
-    type Credentials={
-        email:string;
-        password:string;
-    }
 
   definePageMeta({
           middleware:['guest']
@@ -110,28 +113,45 @@ const submitLoginForm = async (formData:Credentials) => {
 
 <style scoped>
 
+input[type=submit]{
+  background-color: #ff8080;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover{
+  background-color: blue;
+}
+
 </style>
 
 
 
 
 
-/**
-ANSWER FOR =====>> Cannot find name 'defineNuxtConfig'.ts(2304) ERROR IN VS CODE
+      /**
+      ANSWER FOR =====>> Cannot find name 'defineNuxtConfig'.ts(2304) ERROR IN VS CODE
 
 
-I had the same problem, weirdly enough after trying a few things what fixed it for me was 
-changing the VSCode plugin Volar:Typescript Version to Use workspace version THEN changing 
-back to Use VS Code's Version
+      I had the same problem, weirdly enough after trying a few things what fixed it for me was 
+      changing the VSCode plugin Volar:Typescript Version to Use workspace version THEN changing 
+      back to Use VS Code's Version
 
-How:
+      How:
 
-1-  On VSCode press F1 or Ctrl + Shift + P
-2-  Type Volar: Select Typescript Version
-3-  Select Use workspace version
-4-  Repeat steps 1 & 2
-5-  But this time select Use VS Code's Version
-Bam, all my nuxt3 autoimports are correctly typed, don't know why tho.
+      1-  On VSCode press F1 or Ctrl + Shift + P
+      2-  Type Volar: Select Typescript Version
+      3-  Select Use workspace version
+      4-  Repeat steps 1 & 2
+      5-  But this time select Use VS Code's Version
+      Bam, all my nuxt3 autoimports are correctly typed, don't know why tho.
 
+      or 
 
-*/
+      go to extentions and type @builtin typescript and click on gear icon of result and dispable workspace
+
+      */

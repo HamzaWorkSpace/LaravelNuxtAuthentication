@@ -22,7 +22,7 @@ export function useApiFetch<T> (path:string, options:UseFetchOptions<T>={}){
         }
 
     }
-
+  
     return useFetch("http://localhost:8000" + path,{
         credentials:"include",
         watch:false,
