@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import  "@/types/AuthStoreTypes";
 
+//https://www.simplethread.com/choosing-between-two-store-syntaxes-in-pinia/
 
 export const SanctumAuth = defineStore('Authentication',() => {
 
@@ -11,16 +13,29 @@ export const SanctumAuth = defineStore('Authentication',() => {
 
     const errMsg = ref<ErrMsg|string>('');  
 
-    let socialLoginToken = ref<string>('');  
+    let socialLoginToken = ref<string>('');
+
+    let socialLoginName = ref<string>(''); 
+
+    let socialLoginAvatar = ref<string>(''); 
  
-
+   
     //actions
-    async function fetchUser(){
+    async function fetchUser(SocialLogin:boolean){
 
-        const{data,error:errMsg}=await useApiFetch('/api/user'); 
-        user.value = data.value as User;
+        if(SocialLogin)
+        {
+            
+        }
+        else{
+            const{data,error:errMsg}=await useApiFetch('/api/user'); 
+            user.value = data.value as User;
 
-        return errMsg;
+            return errMsg;
+        }
+        
+        
+        
         //console.log(error);
     }
 
@@ -34,10 +49,11 @@ export const SanctumAuth = defineStore('Authentication',() => {
             body:credentials
         });        
 
-        const findUser =await fetchUser();
+            const findUser =await fetchUser(false);
 
-        // findUser.value==null is NO ERROR| findUser.value!=null(data->dhsaflhfjahj) (not null is error)
-        findUser.value==null? errMsg.value = 'SUCCESS': errMsg.value= 'ERROR';
+            // findUser.value==null is NO ERROR| findUser.value!=null(data->dhsaflhfjahj) (not null is error)
+
+            findUser==null  ? errMsg.value = 'SUCCESS': errMsg.value= 'ERROR';
         
         return loginchk;
     }
@@ -62,12 +78,14 @@ export const SanctumAuth = defineStore('Authentication',() => {
             body:info
         });        
 
-        await fetchUser();
+        await fetchUser(false);
 
         return registerchk;
     }
 
-    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,socialLoginToken}
+    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,socialLoginToken};
+
+    persist:true
 });
 
 

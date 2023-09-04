@@ -7,7 +7,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
     if(authStore.isLoggedIn) {
 
-        await authStore.fetchUser();
+        await authStore.fetchUser(false);//false means it is not social login
     }
 })
 

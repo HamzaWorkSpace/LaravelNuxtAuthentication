@@ -24,7 +24,7 @@
 
     const authStore = SanctumAuth();
 
-    await authStore.fetchUser();
+    await authStore.fetchUser(false);
 
 </script>
 

@@ -2,7 +2,19 @@
     <div class="container">
         <p>Please Wait...</p>
 
-        {{ token }}
+        {{ authStore.socialLoginToken }}
+
+        <br/><br/><br/>
+
+        {{authStore.socialLoginName}}     
+
+        <br/><br/><br/>
+
+        {{authStore.socialLoginAvatar }}
+
+        <br/><br/><br/>
+
+        <img :src="authStore.socialLoginAvatar" width="200px" height="100px">
     </div>
 </template>
 
@@ -17,9 +29,15 @@
 
     try{
         const token = ref(route.query.token);
+        const name = ref(route.query.name);
+        const avatar = ref(route.query.avatar);
+
+        authStore.socialLoginToken  =   token;
+        authStore.socialLoginAvatar =   avatar;
+        authStore.socialLoginName   =   name;
+
         //setting session cookie
         const socialauthToken = useCookie('socialauthToken')
-
         socialauthToken.value = token;
     }
     catch(e) {
