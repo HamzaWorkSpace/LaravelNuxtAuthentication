@@ -42,7 +42,7 @@ class SocialAuthController extends Controller
 
         //dd($serviceUser);
    
-        $token          = $serviceUser->token;
+       // $token          = $serviceUser->token;
         //$refreshToken   = $serviceUser->refreshToken;
         //$expiresIn      = $serviceUser->expiresIn;
         //$id           = $serviceUser->getId();
@@ -75,7 +75,9 @@ class SocialAuthController extends Controller
             ]);
         }
 
-        return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token=' .$serviceUser->token. '&origin=' . ($newUser ? 'register' : 'login'));
+        Auth::login($user);
+        
+        return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token=' .$serviceUser->token.'&name='.$serviceUser->getName().'&origin=' . ($newUser ? 'register' : 'login').'&avatar='.$serviceUser->getAvatar());
     
     }
 
