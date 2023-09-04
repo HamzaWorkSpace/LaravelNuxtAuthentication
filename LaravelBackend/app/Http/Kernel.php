@@ -24,6 +24,10 @@ class Kernel extends HttpKernel
         
         //below line of code added to remove this error -> Session store not set on request
         \Illuminate\Session\Middleware\StartSession::class,
+
+        //adding social middleware
+
+        //\App\Http\Middleware\SocialMiddleware::class
     ];
 
     /**
@@ -67,5 +71,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+        'social' => \App\Http\Middleware\SocialMiddleware::class
+
     ];
 }

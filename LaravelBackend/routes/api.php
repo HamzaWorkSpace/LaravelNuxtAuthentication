@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\Api\Auth\SocialAuthController;
 
 
 /*
@@ -22,6 +22,24 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 //Route::post('/AuthProvider', [SocialAuthController::class, 'assignAuthProvider']);
 
-Route::get('googleUserData/{id}', [SocialAuthController::class, 'getGoogleUserData']);
-Route::get('/auth/redirect', [SocialAuthController::class, 'SocialAuthRedirect']);
-Route::get('/auth/callback', [SocialAuthController::class, 'SocialAuthCallBack']);
+
+// Route::get('/auth/redirect', [SocialAuthController::class, 'SocialAuthRedirect']);
+// Route::get('/auth/callback', [SocialAuthController::class, 'SocialAuthCallBack']);
+
+
+
+
+
+Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function() {
+    Route::post('/register', 'Auth\RegisterController@register');
+    Route::post('/login', 'Auth\LoginController@login');
+
+    Route::get('/login/{service}', [SocialAuthController::class, 'SocialAuthRedirect']);
+    Route::get('/login/{service}/callback', [SocialAuthController::class, 'SocialAuthCallBack']);
+});
+
+// Route::group(['middleware' => 'jwt.auth'], function() {
+//     Route::get('/me', 'MeController@index');
+
+//     Route::get('/auth/logout', 'MeController@logout');
+// });

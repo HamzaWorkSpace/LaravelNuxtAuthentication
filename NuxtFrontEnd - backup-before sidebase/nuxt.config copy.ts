@@ -5,12 +5,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    '@formkit/nuxt',
+    '@formkit/nuxt'
   ],
-
-  runtimeConfig: {
-    SOCIAL_LOGIN_BASE_URL: process.env.SOCIAL_LOGIN_BASE_URL ||'http://localhost:8000/api/auth/login',
-  },
 
   experimental: {
     renderJsonPayloads: false

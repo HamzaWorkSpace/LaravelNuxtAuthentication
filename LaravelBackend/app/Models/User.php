@@ -20,8 +20,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'provider_id',
-        'avatar',
         'password'
     ];
 
@@ -44,4 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function social (){
+
+        return $this->hasMany(UserSocial::class, foreignKey:'user_id', localKey:'id');
+    }
+
+    public function hasSocialLinked($service) {
+
+        return (bool) $this->social->where('service', $service)->count();
+    }
+
 }
