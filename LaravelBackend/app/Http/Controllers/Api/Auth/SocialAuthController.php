@@ -50,11 +50,9 @@ class SocialAuthController extends Controller
         //$email         = $serviceUser->getEmail();
         //$avatar       = $serviceUser->getAvatar();
         
-         $email         = $serviceUser->getId().'@'.$service.'.local';
-
-         $user = $this->getExistingUser($serviceUser, $email, $service);
-
-         $newUser = false;
+         $email     = $serviceUser->getId().'@'.$service.'.local';
+         $user      = $this->getExistingUser($serviceUser, $email, $service);
+         $newUser   = false;
 
         if(!$user){
             
@@ -63,21 +61,34 @@ class SocialAuthController extends Controller
             $user = User::create([
                 'name' => $serviceUser->getName(),
                 'email' => $email,
-                'password' => ''
+                'password' => '',
             ]);
         }
 
          if ($this->chkHasSocialAccount($user, $service)) {
+            //if does not have social account registerd create one
             UserSocial::create([
                 'user_id' => $user->id,
                 'social_id' => $serviceUser->getId(),
                 'service' => $service
             ]);
         }
+        //Auth::guard('admin')->login($user);
 
-        Auth::login($user);
+
+        Auth::login($user); //logging in user
+        $user = Auth::user();
+
+        if (Auth::check()) {
+            // The user is logged in then redirect to front end...
+            return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token='.$serviceUser->token.'&origin='.($newUser ? 'register' : 'login').'&authservice='.$service.'&avatar='.$serviceUser->getAvatar().'&isSocialLogin=true'.'&email='.$serviceUser->getEmail().'&name='.$serviceUser->getName());
+        }
+        else {
+            //user not authenticated redirect to 401 page
+            return redirect(env('CLIENT_BASE_URL') . '/auth/401');
+        }
         
-        return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token=' .$serviceUser->token.'&name='.$serviceUser->getName().'&origin=' . ($newUser ? 'register' : 'login').'&avatar='.$serviceUser->getAvatar());
+       // return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token=' .$serviceUser->token.'&name='.$serviceUser->getName().'&origin=' . ($newUser ? 'register' : 'login').'&avatar='.$serviceUser->getAvatar());
     
     }
 
@@ -96,34 +107,9 @@ class SocialAuthController extends Controller
         //if the user does not have social account linked
         return !$user->hasSocialLinked($service);
     }
-    // protected function _registerOrLoginUser($data){
 
-    //     $user = User::where('email','=',$data->email)->first();
-        
-    //     if(!$user){
 
-    //         $user = new User();
-    //         $user->name = $data->name;
-    //         $user->email = $data->email;
-    //         $user->provider_id = $data->id;
-    //         $user->avatar = $data->avatar;
 
-    //         $user->save();
-
-    //     }
-    //     Auth::login($user);
-    // }
-
-    public function getGoogleUserData(){
-       // $userdata= User::where('email','=',$this->user->email)->first();
-
-             return response()->json([
-
-                'googleData'=>''
- 
-            ]);
-
-    }
 
     // public function logout(Request $request)
     // {

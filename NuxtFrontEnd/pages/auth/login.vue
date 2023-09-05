@@ -57,15 +57,8 @@
     </div>
   </div>
 
-  <!-- <div class="mt-10 w-96 mx-auto">
-         <button id="googleLogin" class="hover:text-blue-700" @click="authStore.getGoogleUserData">Login with Google</button> 
-         -->
-          <!-- <form action="http://localhost:8000/api/auth/login/google" method="get"> 
-            <input type="submit" value="Login with Google"/>
-          </form> 
-  </div> -->
-
   <socialLogin/>
+
 </template>
 
 <script lang="ts" setup>
@@ -89,10 +82,6 @@ const submitLoginForm = async (formData:Credentials) => {
 
   const {error} = await authStore.login(formData);
 
-
-  console.log("err msg in login.vue below");
-
-  console.log(authStore.errMsg);
 
   if(error.value==null){// error.value==null means no error, login successfull
 

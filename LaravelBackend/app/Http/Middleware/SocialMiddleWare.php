@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class SocialMiddleWare
@@ -15,7 +16,7 @@ class SocialMiddleWare
      * @param  \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $services = ['facebook', 'apple', 'google'];
         $enabledServices = [];
@@ -34,6 +35,7 @@ class SocialMiddleWare
             }
             return redirect()->back();
         }
-        return $next($request);
+        //return Auth::onceBasic() ? response()->json(['message'=>'Authentication failed please try again'],401): $next($request);
+         return $next($request);
     }
 }

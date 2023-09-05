@@ -5,7 +5,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
    
     const authStore = SanctumAuth();
 
-    if(authStore.isLoggedIn) {
+    if(authStore.isLoggedIn && !authStore.isSocialLogin) {
 
         await authStore.fetchUser(false);//false means it is not social login
     }

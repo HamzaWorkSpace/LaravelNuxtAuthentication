@@ -1,42 +1,35 @@
 import { defineStore } from "pinia";
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+//import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import  "@/types/AuthStoreTypes";
-
-//https://www.simplethread.com/choosing-between-two-store-syntaxes-in-pinia/
 
 export const SanctumAuth = defineStore('Authentication',() => {
 
     //states
     const user = ref<User|null>(null);
-
     const isLoggedIn = computed(()=>!!user.value);
-
-    const errMsg = ref<ErrMsg|string>('');  
+    const errMsg = ref<ErrMsg|string>('');
 
     let socialLoginToken = ref<string>('');
-
     let socialLoginName = ref<string>(''); 
-
-    let socialLoginAvatar = ref<string>(''); 
- 
-   
+    let socialLoginAvatar = ref<string>('');
+    let authservice = ref<string>('');
+    let isSocialLogin = ref<boolean>(false);
+    
     //actions
-    async function fetchUser(SocialLogin:boolean){
+    async function fetchUser(isSocialLogin:boolean){
+        
+        if(isSocialLogin){
 
-        if(SocialLogin)
-        {
-            
         }
         else{
+
             const{data,error:errMsg}=await useApiFetch('/api/user'); 
             user.value = data.value as User;
 
             return errMsg;
+
         }
-        
-        
-        
-        //console.log(error);
+           
     }
 
     async function login(credentials:Credentials){
@@ -83,12 +76,16 @@ export const SanctumAuth = defineStore('Authentication',() => {
         return registerchk;
     }
 
-    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,socialLoginToken};
+    return {user, login, isLoggedIn, fetchUser, logout, register,errMsg,authservice,socialLoginToken,isSocialLogin,socialLoginName,socialLoginAvatar};
 
-    persist:true
+    //persist:true
 });
 
+
+//https://www.simplethread.com/choosing-between-two-store-syntaxes-in-pinia/
 
 // awsome video links
 //https://www.youtube.com/watch?v=NY9yoqoN72w
 //https://www.youtube.com/watch?v=HLPoKz9j9KY
+//https://www.youtube.com/watch?v=zLj3ZQmOUX0
+//https://www.youtube.com/watch?v=gKC7yvllsPE

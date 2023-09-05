@@ -31,12 +31,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function() {
-    Route::post('/register', 'Auth\RegisterController@register');
-    Route::post('/login', 'Auth\LoginController@login');
+    //Route::post('/register', 'Auth\RegisterController@register');
+    //Route::post('/login', 'Auth\LoginController@login');
 
     Route::get('/login/{service}', [SocialAuthController::class, 'SocialAuthRedirect']);
     Route::get('/login/{service}/callback', [SocialAuthController::class, 'SocialAuthCallBack']);
-});
+});//->middleware(SocialMiddleWare::class);
 
 // Route::group(['middleware' => 'jwt.auth'], function() {
 //     Route::get('/me', 'MeController@index');

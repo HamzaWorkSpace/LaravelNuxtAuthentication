@@ -14,6 +14,10 @@
 
         <br/><br/><br/>
 
+        {{authStore.isSocialLogin }}
+
+        <br/><br/><br/>
+
         <img :src="authStore.socialLoginAvatar" width="200px" height="100px">
     </div>
 </template>
@@ -28,23 +32,23 @@
     const route = useRoute();
 
     try{
-        const token = ref(route.query.token);
-        const name = ref(route.query.name);
-        const avatar = ref(route.query.avatar);
 
-        authStore.socialLoginToken  =   token;
-        authStore.socialLoginAvatar =   avatar;
-        authStore.socialLoginName   =   name;
+        authStore.socialLoginToken  =   ref(route.query.token);
+        authStore.socialLoginAvatar =   ref(route.query.avatar);
+        authStore.socialLoginName   =   ref(route.query.name);
+        authStore.socialLoginemail  =   ref(route.query.email);
+        authStore.isSocialLogin     =   ref(route.query.isSocialLogin);
+        authStore.authservice       =   ref(route.query.authservice);
 
-        //setting session cookie
+        //setting token session cookie
         const socialauthToken = useCookie('socialauthToken')
-        socialauthToken.value = token;
+        socialauthToken.value = ref(route.query.token);
+
+        //set the above values in local storage
     }
     catch(e) {
         await navigateTo("/auth/register?error = Your Token is Invalid,Please Try again", { replace: true });
     } 
-    
-    //CHECK https://github.com/sidebase/nuxt-session
 
 </script>
 
