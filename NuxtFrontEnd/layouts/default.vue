@@ -2,7 +2,7 @@
     <div>
 
         <TopNavbar
-            :isloggedIn="authStore.isLoggedIn"
+            :isloggedIn="authStore.isLoggedIn?authStore.isLoggedIn:authStore.isSocialLogin"
         />
         <!-- <TopNavbar/> -->
         <!-- <header class="p-4 bg-gray-600 text-white">
@@ -11,6 +11,8 @@
             <NuxtLink to='/' class="ml-4 p-2 bg-red-600 text-white rounded">Home</NuxtLink>
            
         </header> -->
+        authStore.isSocialLogin->{{ authStore.isSocialLogin }}<br/>
+        authStore.isLoggedIn->{{authStore.isLoggedIn }}
         <div>
             <slot />
         </div>
@@ -18,13 +20,15 @@
     </div>
 </template>
 
-<script setup>
-
-    import {SanctumAuth} from '@/stores/AuthStore'
-
+<script lang="ts" setup>
+import { SanctumAuth } from '@/stores/AuthStore'
     const authStore = SanctumAuth();
 
-    await authStore.fetchUser(false);
+    if(authStore.isLoggedIn)
+    {
+        await authStore.fetchUser(false);
+    }
+  
 
 </script>
 

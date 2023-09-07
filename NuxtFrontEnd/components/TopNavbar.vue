@@ -44,6 +44,8 @@
                                 Guest Only
                             </NuxtLink>
 
+                            <h5>{{ props.isloggedIn }}</h5>
+
                            
                         </div>
 
@@ -77,9 +79,12 @@
                             class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
                         >
 
-                        
-                            {{authStore.user.name}}
-
+                            <span v-if="authStore.isLoggedIn">
+                                {{authStore.user.name}}
+                            </span>
+                            <span v-else>
+                                {{authStore.socialLoginName}}
+                            </span>
                         </NuxtLink>
 
                         &nbsp;|&nbsp;
@@ -254,6 +259,10 @@
             type: Boolean,
             required: true,
         },
+        // isSocialLogin: {
+        //     type: Boolean,
+        //     required: true,
+        // },
     });
     
     

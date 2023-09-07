@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::post('/AuthProvider', [SocialAuthController::class, 'assignAuthProvider']);
+Route::post('/SocialLogout', [SocialAuthController::class, 'SocialLogoutUser']);
 
 
 // Route::get('/auth/redirect', [SocialAuthController::class, 'SocialAuthRedirect']);

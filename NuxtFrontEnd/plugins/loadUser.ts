@@ -1,6 +1,4 @@
-import {SanctumAuth} from '@/stores/AuthStore'
-
-   
+import { SanctumAuth } from '@/stores/AuthStore'
 export default defineNuxtPlugin(async (nuxtApp) => {
    
     const authStore = SanctumAuth();

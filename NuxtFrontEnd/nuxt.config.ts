@@ -3,16 +3,18 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
+    //['@pinia/nuxt',{autoImports: ['createPinia','defineStore', 'acceptHMRUpdate'], },],
+    //['@pinia-plugin-persistedstate/nuxt',{autoImports: ['piniaPluginPersistedstate']},],
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
     '@formkit/nuxt',
   ],
 
-  piniaPersistedstate: {
-    cookieOptions: {
-      sameSite: 'strict',
-    },
-    storage: 'localStorage'
+pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore', // import { defineStore } from 'pinia'
+      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+    ],
   },
 
   // runtimeConfig: {

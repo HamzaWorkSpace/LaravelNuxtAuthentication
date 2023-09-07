@@ -1,10 +1,9 @@
-import {SanctumAuth} from '@/stores/AuthStore'
-
+import { SanctumAuth } from '@/stores/AuthStore'
 export default defineNuxtRouteMiddleware((to, from) => {
     
     const authStore = SanctumAuth();
 
-    if(authStore.isLoggedIn) {
+    if(authStore.isLoggedIn || authStore.isSocialLogin) {
         return navigateTo("/", {replace:true});
     }
 

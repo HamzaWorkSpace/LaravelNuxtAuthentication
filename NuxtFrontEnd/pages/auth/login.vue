@@ -62,38 +62,35 @@
 </template>
 
 <script lang="ts" setup>
-
-import {SanctumAuth} from '@/stores/AuthStore'
-const authStore = SanctumAuth();
-
-
+  import { SanctumAuth } from '@/stores/AuthStore'
   definePageMeta({
-          middleware:['guest']
-  })
+    middleware:['guest']
+  });
+
+  const authStore = SanctumAuth();
+
+  const submitLoginForm = async (formData:Credentials) => {
+
+    if(authStore.isLoggedIn) { 
+
+      return navigateTo("/");
+    }
 
 
-const submitLoginForm = async (formData:Credentials) => {
-
-  if(authStore.isLoggedIn) { 
-
-    return navigateTo("/", { replace: true });
-  }
+    const {error} = await authStore.login(formData);
 
 
-  const {error} = await authStore.login(formData);
+    if(error.value==null){// error.value==null means no error, login successfull
+
+      return navigateTo("/", { replace: true });
+
+    }
+    else{
+      return navigateTo("/auth/login", { replace: true });
+    }
 
 
-  if(error.value==null){// error.value==null means no error, login successfull
-
-    return navigateTo("/", { replace: true });
-
-  }
-  else{
-    return navigateTo("/auth/login", { replace: true });
-  }
-
-
-};
+  };
 
   const handleIconClick = (node:any) => {
         node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'

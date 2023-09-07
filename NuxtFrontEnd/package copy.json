@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@sidebase/nuxt-auth": "^0.6.0-beta.5",
+    "@types/node": "^18.17.1",
+    "nuxt": "^3.6.5",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@formkit/nuxt": "^0.17.5",
+    "@formkit/themes": "^0.17.5",
+    "@pinia/nuxt": "^0.4.11",
+    "localforage": "^1.10.0",
+    "pinia": "^2.1.6",
+    "pinia-plugin-persistedstate-2": "^2.0.14"
+  }
+}
