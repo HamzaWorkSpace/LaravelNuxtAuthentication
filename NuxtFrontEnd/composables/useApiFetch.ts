@@ -1,6 +1,6 @@
 import type { UseFetchOptions } from "nuxt/app";
 
-export function useApiFetch<T> (path:string, options:UseFetchOptions<T>={}){
+export default function useApiFetch<T> (path:string, options:UseFetchOptions<T>={}){
 
     let headers:any = {
         accept: "application/json",

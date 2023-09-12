@@ -27,6 +27,7 @@ class SocialAuthController extends Controller
 
     public function SocialAuthRedirect($service)
     {
+        //dd($service);
         return Socialite::driver($service)->stateless()->redirect();
     }
 
@@ -38,57 +39,136 @@ class SocialAuthController extends Controller
         catch(\Exception $e){
             return redirect(env('CLIENT_BASE_URL').'?/auth/social-callback?ERROR= Unable to login using'.$service.'. Please try again');
         }
-        
 
-        //dd($serviceUser);
-   
-       // $token          = $serviceUser->token;
-        //$refreshToken   = $serviceUser->refreshToken;
-        //$expiresIn      = $serviceUser->expiresIn;
-        //$id           = $serviceUser->getId();
-        //$name         = $serviceUser->getName();
-        //$email         = $serviceUser->getEmail();
-        //$avatar       = $serviceUser->getAvatar();
+       // dd($service);
+
+        if($service=='google'){
         
          $email     = $serviceUser->getId().'@'.$service.'.local';
          $user      = $this->getExistingUser($serviceUser, $email, $service);
          $newUser   = false;
 
-        if(!$user){
+         
+
+            if(!$user){
             
-            $newUser = true;
+                $newUser = true;
+    
+                $user = User::create([
+                    'name' => $serviceUser->getName(),
+                    'email' => $email,
+                    'password' => '',
+                ]);
+            }
+               
 
-            $user = User::create([
-                'name' => $serviceUser->getName(),
-                'email' => $email,
-                'password' => '',
-            ]);
-        }
-
-         if ($this->chkHasSocialAccount($user, $service)) {
-            //if does not have social account registerd create one
-            UserSocial::create([
-                'user_id' => $user->id,
-                'social_id' => $serviceUser->getId(),
-                'service' => $service
-            ]);
-        }
-        //Auth::guard('admin')->login($user);
+            if ($this->chkHasSocialAccount($user, $service)) {
+                //if does not have social account registerd create one
+                UserSocial::create([
+                    'user_id' => $user->id,
+                    'social_id' => $serviceUser->getId(),
+                    'service' => $service
+                ]);
+            }
+            //Auth::guard('admin')->login($user);
 
 
-        Auth::login($user); //logging in user
-        $user = Auth::user();
+            Auth::login($user); //logging in user
+            $user = Auth::user();
 
-        if (Auth::check()) {
+            if (Auth::check()) {
             // The user is logged in then redirect to front end...
-            return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token='.$serviceUser->token.'&origin='.($newUser ? 'register' : 'login').'&authservice='.$service.'&avatar='.$serviceUser->getAvatar().'&isSocialLogin=true'.'&email='.$serviceUser->getEmail().'&name='.$serviceUser->getName());
-        }
-        else {
+                return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token='.$serviceUser->token.'&origin='.($newUser ? 'register' : 'login').'&authservice='.$service.'&avatar='.$serviceUser->getAvatar().'&isSocialLogin=true'.'&email='.$serviceUser->getEmail().'&name='.$serviceUser->getName());
+            }
+            else {
             //user not authenticated redirect to 401 page
-            return redirect(env('CLIENT_BASE_URL') . '/auth/401');
+                return redirect(env('CLIENT_BASE_URL') . '/auth/401');
+            }
+        } //if $service==google end 
+
+        if($service=='apple'){
+
+
+
+
+
+
+
+           // dd($serviceUser);
+
+
+
+
+
+
+
+
+
+
+
+            // $email     = $serviceUser->getId().'@'.$service.'.local';
+            // $user      = $this->getExistingUser($serviceUser, $email, $service);
+            // $newUser   = false;
+   
+            
+   
+            //    if(!$user){
+               
+            //        $newUser = true;
+       
+            //        $user = User::create([
+            //            'name' => $serviceUser->getName(),
+            //            'email' => $email,
+            //            'password' => '',
+            //        ]);
+            //    }
+                  
+   
+            //    if ($this->chkHasSocialAccount($user, $service)) {
+            //        //if does not have social account registerd create one
+            //        UserSocial::create([
+            //            'user_id' => $user->id,
+            //            'social_id' => $serviceUser->getId(),
+            //            'service' => $service
+            //        ]);
+            //    }
+            //    //Auth::guard('admin')->login($user);
+   
+   
+            //    Auth::login($user); //logging in user
+            //    $user = Auth::user();
+   
+            //    if (Auth::check()) {
+            //    // The user is logged in then redirect to front end...
+            //        return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token='.$serviceUser->token.'&origin='.($newUser ? 'register' : 'login').'&authservice='.$service.'&avatar='.$serviceUser->getAvatar().'&isSocialLogin=true'.'&email='.$serviceUser->getEmail().'&name='.$serviceUser->getName());
+            //    }
+            //    else {
+            //    //user not authenticated redirect to 401 page
+            //        return redirect(env('CLIENT_BASE_URL') . '/auth/401');
+            //    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
-        
-       // return redirect(env('CLIENT_BASE_URL') . '/auth/social-callback?token=' .$serviceUser->token.'&name='.$serviceUser->getName().'&origin=' . ($newUser ? 'register' : 'login').'&avatar='.$serviceUser->getAvatar());
     
     }
 
@@ -111,13 +191,15 @@ class SocialAuthController extends Controller
 
 
 
-    public function SocialLogoutUser(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect(env('CLIENT_BASE_URL').'?/logout='.true);
-    }
+    // public function SocialLogoutUser(Request $request)
+    // {
+
+    //     dd($request);
+    //     // Auth::logout();
+    //     // $request->session()->invalidate();
+    //     // $request->session()->regenerateToken();
+    //     // return redirect(env('CLIENT_BASE_URL').'?/logout='.true);
+    // }
 }
 //php artisan config:cache
 

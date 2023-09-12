@@ -3,7 +3,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
     
     const authStore = SanctumAuth();
 
-    if(!authStore.isLoggedIn || !authStore.isSocialLogin) {
+    if(!authStore.isLoggedIn ) {
+        return navigateTo("/auth/login", {replace:true});
+    }
+
+    if(!authStore.isSocialLogin) {
         return navigateTo("/auth/login", {replace:true});
     }
 

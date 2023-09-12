@@ -2,7 +2,8 @@
 
     <nav class="bg-gray-800">
 
-        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="max-w-screen-2xl mx-auto px-1 sm:px-1 lg:px-1" 
+        >
 
             <div class="flex items-center justify-between h-16">
 
@@ -12,7 +13,7 @@
                         <a href="/" class="text-white font-bold text-xl">mainLOGO</a>
                     </div>
                     
-                    <div class="hidden md:block">
+                    <div class="mr-64 hidden md:block">
 
                         <div class="ml-10 flex items-baseline">
 
@@ -44,8 +45,6 @@
                                 Guest Only
                             </NuxtLink>
 
-                            <h5>{{ props.isloggedIn }}</h5>
-
                            
                         </div>
 
@@ -54,13 +53,13 @@
                 </div>
 
                 
-                <div v-if="!props.isloggedIn" class="hidden md:block">
+                <div v-if="!props.isloggedIn" class="ml-96 hidden md:block">
 
-                    <div class="ml-4 flex items-center md:ml-6">  
+                    <div class="ml-1 flex items-center md:ml-1">  
 
                         <NuxtLink
                             to="/auth/login"
-                            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-1 rounded"
                         >
                             Login
 
@@ -70,9 +69,9 @@
                     
                 </div>
 
-                <div v-else class="hidden md:block">
+                <div v-else class="ml-96 hidden md:block">
 
-                    <div class="ml-4 flex items-center md:ml-6">  
+                    <div class="ml-1 flex items-center md:ml-1">  
 
                         <NuxtLink
                             to="/user/dashboard"
@@ -87,7 +86,7 @@
                             </span>
                         </NuxtLink>
 
-                        &nbsp;|&nbsp;
+                        &nbsp;&nbsp;
 
                         <button 
                             v-if="props.isloggedIn" 
@@ -103,6 +102,7 @@
 
                 </div>
 
+                
 
 
 
@@ -124,10 +124,9 @@
 
 
 
+                <!-- mobile responsive nav bar code below -->
 
-<!-- mobile responsive nav bar code below -->
-
-                <div class="md:hidden z-50">
+                <div class="ml-72 md:hidden z-50">
                     <!-- Mobile menu button -->
                     <button
                         @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -204,7 +203,7 @@
                                     to="/user/dashboard"
                                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                                     @click="isMobileMenuOpen = false"
-                                    v-if="!props.isloggedIn"
+                                    v-if="props.isloggedIn"
                                 >
                                     Dashboard
                                 </NuxtLink>
@@ -237,11 +236,18 @@
                     </div>
 
                 </div>
-
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" v-model="props.toggleDarkMode" @click="toggleDarkMode" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        
+                    </div>
+                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
+                </label>
             </div>
-
+            
         </div>
 
+        
     </nav>
 
 </template>
@@ -251,6 +257,8 @@
     import {SanctumAuth} from '@/stores/AuthStore'
 
     const authStore = SanctumAuth();
+
+    
     
     const isMobileMenuOpen = ref(false);
 
@@ -259,10 +267,12 @@
             type: Boolean,
             required: true,
         },
-        // isSocialLogin: {
-        //     type: Boolean,
-        //     required: true,
-        // },
+        toggleDarkMode: {
+            type: Boolean,
+            required: true,
+        },
+        
+       
     });
     
     

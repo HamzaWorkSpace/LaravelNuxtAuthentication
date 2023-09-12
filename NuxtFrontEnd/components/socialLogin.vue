@@ -50,6 +50,8 @@
 
 const socialLogin = async (service)=>{
     
+    console.log(service)
+
     await navigateTo(`http://localhost:8000/api/auth/login/${service}`, {
         external: true
     })

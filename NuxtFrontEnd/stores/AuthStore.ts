@@ -46,14 +46,18 @@ export const SanctumAuth = defineStore('Authentication',() => {
         }
         async function logout(){
 
-            if(isLoggedIn.value==true)
+            if(isLoggedIn.value==true)//if laravel sanctum login
             {
                 await useApiFetch('/logout', { method:"POST" });
 
                 user.value = null;
                 window.location.href = "http://localhost:3000/auth/login";
             }
-            else{
+            else{ //if social login
+                
+
+                //window.location.href = "http://localhost:3000/auth/login";
+                //await useApiFetch('/api/SocialLogout');
                 localStorage.clear();
 
                 socialLoginToken.value = '';
@@ -62,9 +66,6 @@ export const SanctumAuth = defineStore('Authentication',() => {
                 socialLoginAvatar .value = ''; 
                 authservice .value = '';
                 isSocialLogin .value = false;
-
-                window.location.href = "http://localhost:3000/auth/login";
-                //await useApiFetch('/SocialLogout', { method:"POST" });
             }
             
         }

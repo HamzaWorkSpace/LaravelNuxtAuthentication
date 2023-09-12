@@ -8,7 +8,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@formkit/nuxt',
   ],
-
+// nitro:{
+//   routeRules: {
+//     "/backend/**":{
+//       proxy:"http://localhost:8000/**",
+//     }
+//   },
+// },
 pinia: {
     autoImports: [
       // automatically imports `defineStore`
